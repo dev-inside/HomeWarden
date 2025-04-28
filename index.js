@@ -33,7 +33,7 @@ async function requestLW(endpoint) {
  * @returns Custom Icon-Url as string
  */
 async function getIconUrl(name, filepath = "selfhst-icons/webp") {
-  const formattedName = name.toLowerCase().replace(/\s+/g, '-');
+  const formattedName = name.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9_\-]/gi, '');
   const formats = ['.webp', '.png', '.gif', '.svg', '.jpeg'];
   for (const format of formats) {
     const iconPath = path.join(filepath, formattedName + format);
@@ -81,20 +81,21 @@ async function getLinks(id) {
  * 
  * @returns object
  */
-async function createCollections() {
+
+export async function createCollections() {
   const card = {};
+  let timestamp;
+  
   await Promise.all(collections.map(async (section) => {
     const category = await requestLW("collections/" + section.id);
     const result = JSON.parse(category);
-    card[section.id] = {
+    card[section.sort] = {
       title: result.response.name,
       col: section.cols,
       description: result.response.description,
       items: await getLinks(section.id)
     };
   }));
-  const data = card;
-  return data;
+  
+  return { data: card, timestamp: Date.now() };
 }
-
-export { createCollections };

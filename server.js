@@ -3,25 +3,33 @@ import path from 'path';
 import fs from 'fs/promises';
 import { watch } from "fs";
 import nj from 'nunjucks';
-import { serve } from "bun";
 
 const env = new nj.Environment();
 
 // intilalize the collections
 let collections;
+let collectionsCache = null;
 
-// generate the index.html file
 async function generateIndexHtml() {
     try {
         const templatePath = path.join(process.cwd(), 'view', 'template.html');
         const templateContent = await fs.readFile(templatePath, 'utf-8');
         
-        // Check if collections are available
-        if (!collections) {
-            collections = await createCollections();
+        // Check if we have a valid cache
+        if (collectionsCache && Date.now() - collectionsCache.timestamp < process.env.LW_UPDATE * 1000) {
+            console.log('Using cached collections data');
+            collections = collectionsCache.data;
+        } else {
+            console.log('Generating fresh collections data');
+            const freshCollections = await createCollections();
+            collections = freshCollections.data;
+            // Store the fresh data with timestamp
+            collectionsCache = { 
+                data: collections,
+                timestamp: freshCollections.timestamp
+            };
         }
-        
-        // Render the template with the data
+
         const renderedHtml = await env.renderString(templateContent, { data: collections });
         const outputPath = path.join(process.cwd(), 'index.html');
         await fs.writeFile(outputPath, renderedHtml);
@@ -37,6 +45,19 @@ generateIndexHtml();
 // Watch for changes in the view directory
 const watchDirectory = path.join(process.cwd(), 'view');
 watch(watchDirectory, { recursive: true }, (eventType, fileName) => {
-    console.log(`Detected ${ eventType } in ${ fileName }`);
+    console.log(`Detected ${eventType} in ${fileName}`);
     generateIndexHtml();
+});
+
+// Clear cache every 30 seconds
+setInterval(() => {
+    collectionsCache = null;
+    generateIndexHtml();
+}, process.env.LW_UPDATE * 1000);
+
+// Optional: Interval beenden beim Herunterfahren des Servers
+process.on('exit', () => {
+    if (intervalId) {
+        clearInterval(intervalId);
+    }
 });

@@ -14,7 +14,7 @@
     <!-- ... your sidebar content ... -->
     <button id="theme-toggle">🌓️ Night Mode</button>
 </div>
-<main class="row">
+<main class="wrapper row">
     {% for key, category in data %}
         <section class="category col-{{ category.col }}">
             <h2>{{ category.title }}</h2>
@@ -25,8 +25,8 @@
             <ul class="links">
                 {% for id, link in category.items %}
                 <li>
-                    <a href="{{ link.url }}" class="row" target="_blank">
-                        <figure class="col-2">
+                    <a href="{{ link.url }}" target="_blank">
+                        <figure>
                             {% if link.customIcon %}
                             <img src="{{ link.customIcon }}" alt="">
                             {% elif link.selfhost %}
@@ -37,7 +37,7 @@
                             NOOO
                             {% endif %}
                         </figure>
-                        <div class="col-8">
+                        <div class="content">
                             <h3>{{ link.name | truncate(89) }}</h3>
                             <p>{{ link.description }}</p>
                         </div>
