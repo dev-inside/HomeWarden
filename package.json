@@ -9,6 +9,7 @@
   },
   "type": "module",
   "dependencies": {
+    "@fontsource-variable/figtree": "^5.2.6",
     "chokidar": "^4.0.3",
     "nunjucks": "^3.2.4"
   }

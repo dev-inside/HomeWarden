@@ -9,9 +9,11 @@
 
 <body>
 
+    <header>
 <div class="sidebar">
     <button id="theme-toggle">🌓️ Night Mode</button>
 </div>
+</header>
 <main class="wrapper row">
     {% for key, category in data %}
         <section class="category col-{{ category.col }}">
@@ -19,7 +21,6 @@
             {% if category.description %}
             <p>{{ category.description }}</p>
             {% endif %}
-            sdfds
             <ul class="links">
                 {% for id, link in category.items %}
                 <li>
