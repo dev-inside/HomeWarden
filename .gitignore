@@ -8,6 +8,7 @@ lerna-debug.log*
 .pnpm-debug.log*
 bun.lockb
 node_modules
+index.html
 
 # Diagnostic reports (https://nodejs.org/api/report.html)
 report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json

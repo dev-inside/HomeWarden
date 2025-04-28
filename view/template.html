@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>DashWarden</title>
+    <link rel="stylesheet" href="./view/style.css">
+    <script src="./view/scripts.js"></script>
+</head>
+
+<body>
+
+    <!-- ... your existing header content ... -->
+<div class="sidebar">
+    <!-- ... your sidebar content ... -->
+    <button id="theme-toggle">🌓️ Night Mode</button>
+</div>
+<main class="row">
+    {% for key, category in data %}
+        <section class="category col-{{ category.col }}">
+            <h2>{{ category.title }}</h2>
+            {% if category.description %}
+            <p>{{ category.description }}</p>
+            {% endif %}
+            sdfds
+            <ul class="links">
+                {% for id, link in category.items %}
+                <li>
+                    <a href="{{ link.url }}" class="row" target="_blank">
+                        <figure class="col-2">
+                            {% if link.customIcon %}
+                            <img src="{{ link.customIcon }}" alt="">
+                            {% elif link.selfhost %}
+                            <img src="{{ link.selfhost }}" alt="">
+                            {% elif link.icon %}
+                            <img src="{{ link.icon }}" alt="">
+                            {% else %}
+                            NOOO
+                            {% endif %}
+                        </figure>
+                        <div class="col-8">
+                            <h3>{{ link.name | truncate(89) }}</h3>
+                            <p>{{ link.description }}</p>
+                        </div>
+                    </a>
+                </li>
+                {% endfor %}
+            </ul>
+        </section>
+        {% endfor %}
+    </main>
+</body>
+
+</html>
