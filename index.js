@@ -1,12 +1,18 @@
 // index.js
 import fs from "fs";
 import path from 'path';
+import config from "./config.toml";
 
 const host = process.env.LW_HOST;
 const api = "api/v1";
 const token = process.env.LW_TOKEN;
 const url = host + "/" + api;
-const collections = JSON.parse(process.env.COLLECTIONS);
+const collections = config.COLLECTIONS;
+
+function getBaseUrl(url) {
+  const parsedUrl = new URL(url);
+  return `${parsedUrl.protocol}//${parsedUrl.host}`;
+}
 
 /**
  * 
@@ -61,13 +67,13 @@ async function getLinks(id) {
       name: link.name,
       description: link.description,
       url: link.url,
-      icon: host + "/_next/image?url=" + encodeURIComponent("https://t2.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=" + link.url + "&size=128") + "&w=64&q=100",
       selfhost: await getIconUrl(link.name),
+      icon: `https://www.google.com/s2/favicons?domain=${await getBaseUrl(link.url)}&sz=256`,
       customIcon: await getIconUrl(link.name, 'custom/icons'),
       tags: link.tags
     };
   });
-  
+
   const linkArray = await Promise.all(iconPromises);
   linkArray.forEach(link => {
     links[link.id] = link;

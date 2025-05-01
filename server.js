@@ -3,6 +3,7 @@ import path from 'path';
 import fs from 'fs/promises';
 import { watch } from "fs";
 import nj from 'nunjucks';
+import config from "./config.toml";
 
 const env = new nj.Environment();
 
@@ -53,7 +54,7 @@ watch(watchDirectory, { recursive: true }, (eventType, fileName) => {
 setInterval(() => {
     collectionsCache = null;
     generateIndexHtml();
-}, process.env.LW_UPDATE * 1000);
+}, config.REFRESH_INTERVAL * 1000);
 
 // Optional: Interval beenden beim Herunterfahren des Servers
 process.on('exit', () => {

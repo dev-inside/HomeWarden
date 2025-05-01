@@ -2,7 +2,8 @@
   "name": "dashwarden",
   "module": "index.js",
   "devDependencies": {
-    "@types/bun": "latest"
+    "@types/bun": "latest",
+    "npm-run-all2": "^7.0.2"
   },
   "peerDependencies": {
     "typescript": "^5.0.0"
@@ -12,5 +13,10 @@
     "@fontsource-variable/figtree": "^5.2.6",
     "chokidar": "^4.0.3",
     "nunjucks": "^3.2.4"
+  },
+  "scripts": {
+    "dw-server": "bun server.js",
+    "dw-dash": "bun index.html",
+    "start": "bun npm-run-all --parallel dw-server dw-dash"
   }
 }

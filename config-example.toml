@@ -1,0 +1,13 @@
+# COLLECTIONS
+# Set collections as array
+# id: the uniqure collections-id in Linkwarden
+# cols: Column width of your section. You can choose between 1-12
+
+COLLECTIONS = [
+    { id = "1", sort = 1, cols = 4 },
+    { id = "2", sort = 2, cols = 4 },
+    { id = "3", sort = 3, cols = 4 },
+]
+
+# Update-Frequency in seconds
+REFRESH_INTERVAL = 120
