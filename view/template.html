@@ -3,27 +3,29 @@
 
 <head>
     <title>DashWarden</title>
+    <style>
+        :root{
+            --primary-color: {{ data.global.color }};
+        }
+        </style>
+    
     <link rel="stylesheet" href="./view/style.css">
-    <script src="./view/scripts.js"></script>
     <script type="module" src="https://unpkg.com/ninja-keys?module"></script>
-
 </head>
 
-<body>
 
-    <header>
-<div class="sidebar">
-    <button id="theme-toggle">🌓️ Night Mode</button>
-</div>
-</header>
-<main class="wrapper row">
-    {% for key, category in data %}
+<body>
+    <header>        
+        
+    </header>
+    <main class="wrapper row">
+        {% for key, category in data %}
         <section class="category col-{{ category.col }}">
             <h2>{{ category.title }}</h2>
             {% if category.description %}
             <p>{{ category.description }}</p>
             {% endif %}
-            <ul class="links">
+            <ul class="links"> 
                 {% for id, link in category.items %}
                 <li>
                     <a href="{{ link.url }}" target="_blank">
@@ -49,33 +51,13 @@
         </section>
         {% endfor %}
     </main>
-    <ninja-keys class="dark"> </ninja-keys>
+    
 </body>
-
-<script>
-    const ninja = document.querySelector('ninja-keys');
-    ninja.data = [
-    {% for key, category in data %}
-    {% for id, link in category.items %}
-      {
-        id: '{{ link.name }}',
-        title: '{{ link.name }}',
-        section: '{{ category.title }}',
-        keywords: '{{ link.tags }}',
-        icon: `{% if link.customIcon %}
-                <img width="24" height="24" src="{{ link.customIcon }}" alt=""> 
-                {% elif link.selfhost %}
-                <img width="24" height="24" src="{{ link.selfhost }}" alt=""> 
-                {% elif link.icon %}
-                <img width="24" height="24" src="{{ link.icon }}" alt=""> 
-                {% endif %}`,
-        handler: () => {
-            window.open("{{ link.url }}", '_blank');
-        },
-      },
-      {% endfor %}
-      {% endfor %}
-    ];
+<ninja-keys class="dark"> </ninja-keys>
+<script defer>
+      const ninja = document.querySelector("ninja-keys");
+      ninja.data = hotkeys;
   </script>
+
 
 </html>

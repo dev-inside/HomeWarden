@@ -1,20 +1,19 @@
 @import '@fontsource-variable/figtree';
 
 :root {
-  --primary-color: 20, 151, 167;
-  --primary-alpha: rgba(var(--primary-color), .5);
-  --border-radius: 8px;
-  --background-color: #ffffff;
-  --text-color: #000000;
+  --primary-color-light: color-mix(in srgb, var(--primary-color) 50%, rgba(255, 255, 255, 1));
+  --primary-alpha: color-mix(in srgb, var(--primary-color) 10%, rgba(255, 255, 255, 0));
+  --primary-alpha-dark: color-mix(in srgb, var(--primary-color) 5%, rgba(0, 0, 0, 0.8));
+  --text-color: color-mix(in srgb, var(--primary-color) 30%, rgba(255, 255, 255, 1));
+  --border-radius: 9px;
+  --font-family: 'Figtree', sans-serif;
+  --font-size: 1rem;
+  --line-height: 1.5;
+  --background-color: var(--primary-color);
   --unit: 1rem;
   --wrapper: 1800px;
 }
 
-[data-theme='dark'] {
-  --primary-color: #B2EBF2;
-  --background-color: #1a1a1a;
-  --text-color: #ffffff;
-}
 
 * {
   padding: 0;
@@ -27,7 +26,7 @@
 
 body {
   position: relative;
-  background-image: url('../custom/bg.jpeg');
+  
   background-position: 50% 50%;
   background-repeat: no-repeat;
   background-attachment: fixed;
@@ -37,34 +36,35 @@ body {
   font-family: 'Figtree Variable', sans-serif;
   font-size: 13px;
   font-weight: 300;
-  line-height: 1.2;
+  line-height: var(--line-height);
   color: var(--text-color);
 
-  &::before{
+  &::before {
     content: "";
     position: fixed;
     display: block;
-    background-color: rgba(0,0,0,.5);
+    background-color: var(--primary-alpha-dark);
     width: 100%;
     height: 100vh;
     backdrop-filter: blur(10px);
     z-index: -1;
   }
-  
 
-  
+
+
 }
 
 h1,
 h2,
 h3,
 h4 {
-  font-weight: 300;
-  color: var(--primary-color);
+  font-weight: 200;
+  color: var(--primary-color-light);
 }
 
 p {
   color: var(--text-color);
+  line-height: var(--line-height);
 }
 
 .wrapper {
@@ -73,17 +73,17 @@ p {
   padding: 0 var(--unit);
   margin: 0 auto;
 }
-.category {
-}
+
+.category {}
 
 .links {
-  margin: calc(var(--unit) * .5) 0;
   backdrop-filter: blur(15px);
+
   li {
     background-color: var(--primary-alpha);
     border-radius: var(--border-radius);
     display: block;
-    margin-bottom: calc(var(--unit) * .3);
+    margin-bottom: calc(var(--unit) * .6);
 
     a {
       display: flex;
@@ -101,6 +101,7 @@ p {
 
   figure {
     width: 45px;
+
     img {
       width: 100%;
     }

@@ -5,8 +5,7 @@ import { watch } from "fs";
 import nj from 'nunjucks';
 import config from "./config.toml";
 
-const env = new nj.Environment();
-
+const env = new nj.Environment(new nj.FileSystemLoader(path.join(process.cwd(), 'view')));
 // intilalize the collections
 let collections;
 let collectionsCache = null;
@@ -17,7 +16,7 @@ async function generateIndexHtml() {
         const templateContent = await fs.readFile(templatePath, 'utf-8');
         
         // Check if we have a valid cache
-        if (collectionsCache && Date.now() - collectionsCache.timestamp < process.env.LW_UPDATE * 1000) {
+        if (collectionsCache && Date.now() - collectionsCache.timestamp < config.REFRESH_INTERVAL * 1000) {
             console.log('Using cached collections data');
             collections = collectionsCache.data;
         } else {

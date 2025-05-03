@@ -15,8 +15,8 @@
     "nunjucks": "^3.2.4"
   },
   "scripts": {
-    "dw-server": "bun server.js",
-    "dw-dash": "bun index.html",
+    "dw-server": "bun --watch server.js",
+    "dw-dash": "bun index.html ",
     "start": "bun npm-run-all --parallel dw-server dw-dash"
   }
 }
