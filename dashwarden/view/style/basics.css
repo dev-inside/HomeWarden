@@ -17,7 +17,7 @@
     background-color: var(--background-color);
     position: static;
     font-family: 'Figtree Variable', sans-serif;
-    font-size: 13px;
+    font-size: var(--font-size);
     font-weight: 300;
     line-height: var(--line-height);
     color: var(--text-color);
@@ -31,6 +31,7 @@
       height: 100vh;
       backdrop-filter: blur(10px);
       z-index: -1;
+      top: 0;
     }
   }
   

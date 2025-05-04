@@ -1,5 +1,13 @@
 {
   "name": "dashwarden",
+  "description": "DashWarden - a simple Startpage/Dashboard - powered by your Linkwarden collections!",
+  "version": "0.5.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dev-inside/dashwarden.git"
+  },
+  "license": "MIT",
+  "author": "dev-inside",
   "module": "index.js",
   "devDependencies": {
     "@types/bun": "latest",
@@ -15,8 +23,8 @@
     "nunjucks": "^3.2.4"
   },
   "scripts": {
-    "dw-server": "bun --watch server.js",
-    "dw-dash": "bun --minify index.html ",
-    "start": "bun npm-run-all --parallel dw-server dw-dash"
+    "dw-server": "bun --watch dashwarden/server.js",
+    "dw-dash": "bun index.html ",
+    "start": "bun run-p dw-server dw-dash"
   }
 }

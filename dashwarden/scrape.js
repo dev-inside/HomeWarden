@@ -1,7 +1,7 @@
-// index.js
 import fs from "fs";
 import path from 'path';
-import config from "./config.toml";
+import config from "../config.toml";
+import pkgJson from '../package.json';
 
 const host = process.env.LW_HOST;
 const api = "api/v1";
@@ -24,7 +24,12 @@ function getBaseUrl(url) {
     return null; // oder einen anderen Standardwert, den Sie möchten
   }
   const parsedUrl = new URL(url);
-  return `${parsedUrl.protocol}//${parsedUrl.host}`;
+  const host = parsedUrl.host;
+
+  // Entferne "www." von der Domain, falls vorhanden
+  const baseUrl = host.startsWith('www.') ? host.slice(4) : host;
+
+  return baseUrl;
 }
 
 /**
@@ -72,6 +77,24 @@ async function getIconUrl(name, filepath = "selfhst-icons/webp") {
 }
 
 /**
+ * downloadIcon(url, filepath)
+ * 
+ * Downloads an icon from the given URL and saves it to the specified filepath.
+ * 
+ * @param {string} url - The URL of the icon to download.
+ * @param {string} filepath - The path where the icon should be saved.
+ * @returns {Promise<boolean>} - Returns true if the download was successful, otherwise false.
+ */
+async function downloadIcon(url, filepath) {
+  const response = await fetch(url);
+  console.log(`Fetching URL: ${url} - Status: ${response.status} - Status Text: ${response.statusText}`);
+
+  // Versuchen Sie, das Icon herunterzuladen
+  const buffer = await response.arrayBuffer();
+  await Bun.write(filepath, new Uint8Array(buffer));
+  console.log(`Icon downloaded and saved to ${filepath}`);
+}
+/**
  * getLinks(id)
  * 
  * This function generates the object for the list-data
@@ -87,13 +110,21 @@ async function getLinks(id) {
   const iconPromises = parsedCall.response.map(async (link) => {
     const baseUrl = await getBaseUrl(link.url);
     if (baseUrl) {
+      const iconUrl = `https://icons.duckduckgo.com/ip3/${baseUrl}.ico`;
+      const iconPath = path.join('.cached-icons', `${baseUrl}.ico`); // Verzeichnis für gecachte Icons
+
+      // Überprüfen, ob das Icon bereits existiert, wenn nicht, herunterladen
+      if (!fs.existsSync(iconPath)) {
+        await downloadIcon(iconUrl, iconPath);
+      }
+
       return {
         id: link.id,
         name: link.name,
         description: link.description,
         url: link.url,
         selfhost: await getIconUrl(link.name),
-        icon: `https://www.google.com/s2/favicons?domain=${baseUrl}&sz=256`,
+        icon: iconPath, // Verwenden Sie den Pfad zum gecachten Icon
         customIcon: await getIconUrl(link.name, 'custom/icons'),
         tags: link.tags
       };
@@ -124,6 +155,9 @@ export async function createCollections() {
     global: {
       color: config.COLOR,
       wrapper: config.WRAPPER,
+      font_size: config.FONT_SIZE,
+      border_radius: config.BORDER_RADIUS,
+      dw_version: pkgJson.version,
     }
   };
   

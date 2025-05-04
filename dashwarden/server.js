@@ -1,12 +1,12 @@
-import { createCollections } from './index.js';
+import { createCollections } from './scrape.js';
 import path from 'path';
 import fs from 'fs/promises';
 import { watch } from "fs";
 import nj from 'nunjucks';
-import config from "./config.toml";
+import config from "../config.toml";
 
 // nunjucks-instance
-const env = new nj.Environment(new nj.FileSystemLoader(path.join(process.cwd(), 'view')), {
+const env = new nj.Environment(new nj.FileSystemLoader(path.join(process.cwd(), 'dashwarden/view')), {
     autoescape: true,
     trimBlocks: true, 
     lstripBlocks: true
@@ -19,10 +19,11 @@ let collectionsCache = null;
 // generate the index.html file
 async function generateIndexHtml() {
     try {
-        const templatePath = path.join(process.cwd(), 'view', 'template.html');
-        const templateContent = await fs.readFile(templatePath, 'utf-8');
-        
-        // Check if we have a valid cache
+        // Erstellen Sie das Verzeichnis für gecachte Icons, falls es nicht existiert
+        const cacheDir = path.join(process.cwd(), '.cached-icons');
+        await fs.mkdir(cacheDir, { recursive: true });
+
+        // Überprüfen, ob wir einen gültigen Cache haben
         if (collectionsCache && Date.now() - collectionsCache.timestamp < config.REFRESH_INTERVAL * 1000) {
             console.log('Using cached collections data');
             collections = collectionsCache.data;
@@ -30,13 +31,15 @@ async function generateIndexHtml() {
             console.log('Generating fresh collections data');
             const freshCollections = await createCollections();
             collections = freshCollections.data;
-            // Store the fresh data with timestamp
+            // Frische Daten mit Zeitstempel speichern
             collectionsCache = { 
                 data: collections,
                 timestamp: freshCollections.timestamp
             };
         }
 
+        const templatePath = path.join(process.cwd(), 'dashwarden/view', 'template.html');
+        const templateContent = await fs.readFile(templatePath, 'utf-8');
         const renderedHtml = await env.renderString(templateContent, { data: collections });
         const outputPath = path.join(process.cwd(), 'index.html');
         await fs.writeFile(outputPath, renderedHtml);
@@ -50,7 +53,7 @@ async function generateIndexHtml() {
 generateIndexHtml();
 
 // Watch for changes in the view directory
-const watchDirectory = path.join(process.cwd(), 'view');
+const watchDirectory = path.join(process.cwd(), 'dashwarden/view');
 watch(watchDirectory, { recursive: true }, (eventType, fileName) => {
     console.log(`Detected ${eventType} in ${fileName}`);
     generateIndexHtml();
