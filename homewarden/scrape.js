@@ -155,6 +155,7 @@ export async function createCollections() {
       wrapper: config.WRAPPER,
       font_size: config.FONT_SIZE,
       border_radius: config.BORDER_RADIUS,
+      bg_img: config.BG_IMG,
       dw_version: pkgJson.version,
     }
   };

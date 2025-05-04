@@ -1,6 +1,47 @@
 import data from '../collections.json';
 import 'ninja-keys';
 
+// Konfiguration
+const config = {
+    dateFormat: 'DD/MM/YY',
+    timeFormat: 'HH:mm:ss',
+    timeMode: '24h'
+  };
+  
+  let dateString, timeString;
+  
+  function formatDate(date) {
+    return `${date.getDate().toString().padStart(2, '0')}/${(date.getMonth() + 1).toString().padStart(2, '0')}/${date.getFullYear().toString().slice(-2)}`;
+  }
+  
+  function formatTime(date, timeMode) {
+    let hours = date.getHours();
+    const minutes = date.getMinutes();
+    const seconds = date.getSeconds();
+    let ampm = '';
+  
+    if (timeMode === '12h') {
+      hours = hours % 12 || 12;
+      ampm = hours >= 12 ? 'PM' : 'AM';
+      return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')} ${ampm}`;
+    } else {
+      return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+    }
+  }
+  
+  function updateDateTime() {
+    const dateTimeElement = document.getElementById('datetime');
+    const currentDate = new Date();
+  
+    dateString = formatDate(currentDate);
+    timeString = formatTime(currentDate, config.timeMode);
+  
+    dateTimeElement.textContent = `${dateString} - ${timeString}`;
+    requestAnimationFrame(updateDateTime);
+  }
+  
+  updateDateTime();
+
 const ninja = document.querySelector('ninja-keys');
 const commands = [];
 

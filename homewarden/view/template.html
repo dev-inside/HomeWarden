@@ -14,7 +14,11 @@
     <link rel="stylesheet" href="./homewarden/view/style.css">
     <script type="module" src="./homewarden/view/scripts.js"></script>
 </head>
-<body>
+<body background="url({{ data.global.bg_img }})">
+    
+    <header>
+        <time id="datetime"></time>
+    </header>
     <main class="wrapper row">
         {% for key, category in data -%}
         {% if category and category.items %}
