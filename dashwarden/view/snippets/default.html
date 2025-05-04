@@ -7,7 +7,9 @@
         {% for id, link in category.items -%}
         <li>
             <a href="{{ link.url }}" target="_blank">
-                {% include "snippets/image.part.html" %}
+                <figure>
+                    {% include "snippets/image.part.html" %}
+                </figure>
                 <div class="content">
                     <h3>{{ link.name | truncate(89) }}</h3>
                     {% if link.description %}

@@ -12,7 +12,7 @@
 
     &.grouped,
     &.services li {
-        backdrop-filter: blur(15px);
+        backdrop-filter: blur(50px);
         background-color: var(--primary-alpha);
         border-radius: var(--border-radius);
         overflow: hidden;

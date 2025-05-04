@@ -1,11 +1,2 @@
-<figure>
-    {% if link.customIcon %}
-    <img src="{{ link.customIcon }}" alt="">
-    {% elif link.selfhost %}
-    <img src="{{ link.selfhost }}" alt="">
-    {% elif link.icon %}
-    <img src="{{ link.icon }}" alt="">
-    {% else %}
-    NOOO
-    {% endif %}
-</figure>
+{% set iconSrc = link.customIcon or link.selfhost or link.icon %}
+{% if iconSrc %}<img width="45px" src="{{ iconSrc }}" alt="{{ link.name }}" />{% endif %}

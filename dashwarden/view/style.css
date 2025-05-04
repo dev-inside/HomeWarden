@@ -1,4 +1,5 @@
 @import './style/root.css';
+@import './style/panel.css';
 @import '@fontsource-variable/figtree';
 @import './style/basics.css';
 @import './style/containers.css';

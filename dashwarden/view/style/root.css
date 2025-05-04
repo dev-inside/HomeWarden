@@ -1,11 +1,21 @@
 :root {
-    --primary-color-light: color-mix(in srgb, var(--primary-color) 60%, rgba(255, 255, 255, 1));
-    --primary-alpha: color-mix(in srgb, var(--primary-color) 10%, rgba(255, 255, 255, 0));
-    --primary-alpha-hover: color-mix(in srgb, var(--primary-color) 14%, rgba(255, 255, 255, 0));
-    --primary-alpha-dark: color-mix(in srgb, var(--primary-color) 5%, rgba(0, 0, 0, 0.8));
-    --text-color: color-mix(in srgb, var(--primary-color) 30%, rgba(255, 255, 255, 1));
-    --background-color: var(--primary-color);
-    --font-family: 'Figtree', sans-serif;
-    --unit: 1rem;
-    --line-height: 1.5;
-  }
+  --primary-color-light: color-mix(in srgb, var(--primary-color) 30%, rgba(0, 0, 0, .7));
+  --primary-alpha: color-mix(in srgb, var(--primary-color) 20%, rgba(255, 255, 255, .3));
+  --primary-alpha-hover: color-mix(in srgb, var(--primary-color) 30%, rgba(255, 255, 255, .8));
+  --primary-alpha-dark: color-mix(in srgb, var(--primary-color) 10%, rgba(255, 255, 255, .3));
+  --text-color: color-mix(in srgb, var(--primary-color) 0%, rgba(0, 0, 0, .7));
+  --background-color: color-mix(in srgb, var(--primary-color) 25%, rgba(255, 255, 255, .7));
+  --font-family: 'Figtree', sans-serif;
+  --unit: 1rem;
+  --line-height: 1.5;
+  --color-scheme: light dark;
+}
+
+[data-theme="dark"] {
+  --primary-color-light: color-mix(in srgb, var(--primary-color) 60%, rgba(255, 255, 255, 1));
+  --primary-alpha: color-mix(in srgb, var(--primary-color) 10%, rgba(255, 255, 255, 0));
+  --primary-alpha-hover: color-mix(in srgb, var(--primary-color) 14%, rgba(255, 255, 255, 0));
+  --primary-alpha-dark: color-mix(in srgb, var(--primary-color) 5%, rgba(0, 0, 0, 0.8));
+  --text-color: color-mix(in srgb, var(--primary-color) 30%, rgba(255, 255, 255, 1));
+  --background-color: var(--primary-color);
+}

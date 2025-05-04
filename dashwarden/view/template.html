@@ -1,7 +1,8 @@
-<!DOCTYPE html lang="en">
-<html>
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
 <head>
     <title>DashWarden</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
         :root{
             --primary-color: {{ data.global.color }};
@@ -9,28 +10,25 @@
             --font-size: {{ data.global.font_size }};
             --border-radius: {{ data.global.border_radius }};
         }
-        </style>    
+        </style>
     <link rel="stylesheet" href="./dashwarden/view/style.css">
-    <script type="module" src="https://unpkg.com/ninja-keys?module"></script>
+    <script type="module" src="./dashwarden/view/scripts.js"></script>
 </head>
 <body>
     <main class="wrapper row">
         {% for key, category in data -%}
-            {% if category and category.items %}
-                {% if category.type == 'group' %}{% include "snippets/type.group.html" %}
-                {% else %}
-                    {% include "snippets/default.html" %}
-                {% endif %}
-            {% endif %}
+        {% if category and category.items %}
+        {% if category.type == 'group' %}
+        {% include "snippets/type.group.html" %}
+        {% else %}
+        {% include "snippets/default.html" %}
+        {% endif %}
+        {% endif %}
         {% endfor %}
     </main>
     <footer>
         <p>DashWarden {{ data.global.dw_version }}</p>
     </footer>
+    <ninja-keys></ninjas-keys>
 </body>
-<ninja-keys class="dark"> </ninja-keys>
-<script defer>
-      const ninja = document.querySelector("ninja-keys");
-      ninja.data = hotkeys;
-  </script>
 </html>

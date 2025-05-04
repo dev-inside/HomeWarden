@@ -76,6 +76,7 @@ async function getIconUrl(name, filepath = "selfhst-icons/webp") {
   return null;
 }
 
+
 /**
  * downloadIcon(url, filepath)
  * 
@@ -124,12 +125,12 @@ async function getLinks(id) {
         description: link.description,
         url: link.url,
         selfhost: await getIconUrl(link.name),
-        icon: iconPath, // Verwenden Sie den Pfad zum gecachten Icon
+        icon: iconPath,
         customIcon: await getIconUrl(link.name, 'custom/icons'),
         tags: link.tags
       };
     } else {
-      return null; // oder einen anderen Standardwert, den Sie möchten
+      return null;
     }
   });
 
@@ -175,6 +176,6 @@ export async function createCollections() {
     };
   }));
 
-  
+  await Bun.write('./dashwarden/collections.json', JSON.stringify(card));
   return { data: card, timestamp: Date.now() };
 }

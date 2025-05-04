@@ -1,0 +1,39 @@
+ninja-keys {
+    --ninja-overflow-background: color-mix(in srgb, var(--primary-color) 10%, rgba(0, 0, 0, .8));
+    --ninja-text-color: var(--text-color);
+    --ninja-accent-color: var(--primary-color-alpha-hover);
+    --ninja-secondary-background-color: var(--primary-alpha-hover);
+    --ninja-secondary-text-color: var(--text-color);
+    --ninja-group-text-color: color-mix(in srgb, var(--primary-color) 10%, rgba(0, 0, 0, .6));
+    --ninja-footer-background: var(--primary-alpha);
+    --ninja-placeholder-color: color-mix(in srgb, var(--text-color) 40%, rgba(0, 0, 0, .6));
+    --ninja-selected-background: var(--primary-alpha);
+    --ninja-modal-background: color-mix(in srgb, var(--primary-color) 25%, rgba(255, 255, 255, 1));
+
+    --ninja-width: 960px;
+    --ninja-backdrop-filter: blur(3px);
+    --ninja-font-size: calc(var(--font-size) * 1.5);
+    --ninja-top: 20%;
+    --ninja-key-border-radius: 0.25em;
+    --ninja-icon-size: 1.2em;
+    --ninja-separate-border: 1px solid var(--primary-alpha);
+    --ninja-modal-shadow: 0px 16px 70px rgba(0, 0, 0, 0.2);
+    --ninja-actions-height: 360px;
+    --ninja-z-index: 1;
+}
+
+[data-theme="dark"] {
+    ninja-keys {
+        --ninja-overflow-background: color-mix(in srgb, var(--primary-color) 10%, rgba(0, 0, 0, .8));
+        --ninja-text-color: var(--text-color);
+        --ninja-accent-color: var(--primary-color-alpha-hover);
+        --ninja-secondary-background-color: var(--primary-alpha-hover);
+        --ninja-secondary-text-color: var(--text-color);
+        --ninja-group-text-color: color-mix(in srgb, var(--primary-color) 10%, rgba(0, 0, 0, .6));
+        --ninja-footer-background: var(--primary-alpha);
+        --ninja-placeholder-color: color-mix(in srgb, var(--text-color) 40%, rgba(0, 0, 0, .6));
+        --ninja-selected-background: color-mix(in srgb, var(--primary-color) 50%, rgba(0, 0, 0, .6));
+        --ninja-modal-background: color-mix(in srgb, var(--primary-color) 25%, rgba(0, 0, 0, 1));
+        --ninja-group-text-color: color-mix(in srgb, var(--primary-color) 50%, rgba(255, 255, 255, 1));
+    }
+}

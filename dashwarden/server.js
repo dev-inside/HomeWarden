@@ -19,11 +19,9 @@ let collectionsCache = null;
 // generate the index.html file
 async function generateIndexHtml() {
     try {
-        // Erstellen Sie das Verzeichnis für gecachte Icons, falls es nicht existiert
         const cacheDir = path.join(process.cwd(), '.cached-icons');
         await fs.mkdir(cacheDir, { recursive: true });
 
-        // Überprüfen, ob wir einen gültigen Cache haben
         if (collectionsCache && Date.now() - collectionsCache.timestamp < config.REFRESH_INTERVAL * 1000) {
             console.log('Using cached collections data');
             collections = collectionsCache.data;
@@ -31,7 +29,7 @@ async function generateIndexHtml() {
             console.log('Generating fresh collections data');
             const freshCollections = await createCollections();
             collections = freshCollections.data;
-            // Frische Daten mit Zeitstempel speichern
+
             collectionsCache = { 
                 data: collections,
                 timestamp: freshCollections.timestamp
@@ -58,6 +56,7 @@ watch(watchDirectory, { recursive: true }, (eventType, fileName) => {
     console.log(`Detected ${eventType} in ${fileName}`);
     generateIndexHtml();
 });
+
 
 // Clear cache every 30 seconds
 setInterval(() => {

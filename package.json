@@ -20,11 +20,12 @@
   "dependencies": {
     "@fontsource-variable/figtree": "^5.2.6",
     "chokidar": "^4.0.3",
+    "ninja-keys": "^1.2.2",
     "nunjucks": "^3.2.4"
   },
   "scripts": {
     "dw-server": "bun --watch dashwarden/server.js",
-    "dw-dash": "bun index.html ",
+    "dw-dash": "bun --watch index.html ",
     "start": "bun run-p dw-server dw-dash"
   }
 }
