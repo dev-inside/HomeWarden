@@ -1,13 +1,44 @@
+# COLOR
+# The colorscheme is automatically generated from your config.toml
+# You can change the color by changing the value of the variable in the file.
+# If you want to use a different color, you can change it here.
+# 
+COLOR = "#DF4BB5"
+
+# FONT_SIZE
+# The font-size of your wrapper.
+# You can use px, rem or em.
+# By default it is set to .87rem.
+FONT_SIZE = "14px"
+
+# BORDER_RADIUS
+# The border-radius of your wrapper.
+# By default it is set to 9px.
+BORDER_RADIUS = "9px"
+
+# WRAPPER
+# The width of your wrapper. You can set pixelvalues or percentages for example 100%.
+# By default it is set to 1880px.
+WRAPPER = "1880px"
+
 # COLLECTIONS
 # Set collections as array
 # id: the uniqure collections-id in Linkwarden
 # cols: Column width of your section. You can choose between 1-12
-
+# sort: Sort order of your section. You can choose a single digit.
+# type: is how your collections will be rendered. You have the following options:
+# - group: will render your collections as a group-container with smaller thumbnails. Great for Link-Collections.
+# - default: if you don't assign "type", then every link will be displayed as separated link panel. Great for Services in your Homelab
 COLLECTIONS = [
-    { id = "1", sort = 1, cols = 4 },
-    { id = "2", sort = 2, cols = 4 },
-    { id = "3", sort = 3, cols = 4 },
+    { id = 1, cols = 4 },
+    { id = 2, cols = 4 },
+    { id = 3, cols = 4 },
+    { id = 4, cols = 4, type = "group" },
+    { id = 5, cols = 4, type = "group" }
 ]
 
-# Update-Frequency in seconds
-REFRESH_INTERVAL = 120
+# REFRESH_INTERVAL
+# This is necessary to update the links every x seconds 
+# to avoid rate limit errors.
+# The default value is 120 seconds.
+REFRESH_INTERVAL = 3600
