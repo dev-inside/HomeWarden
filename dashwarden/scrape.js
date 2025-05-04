@@ -76,7 +76,6 @@ async function getIconUrl(name, filepath = "selfhst-icons/webp") {
   return null;
 }
 
-
 /**
  * downloadIcon(url, filepath)
  * 
@@ -90,7 +89,6 @@ async function downloadIcon(url, filepath) {
   const response = await fetch(url);
   console.log(`Fetching URL: ${url} - Status: ${response.status} - Status Text: ${response.statusText}`);
 
-  // Versuchen Sie, das Icon herunterzuladen
   const buffer = await response.arrayBuffer();
   await Bun.write(filepath, new Uint8Array(buffer));
   console.log(`Icon downloaded and saved to ${filepath}`);
@@ -114,7 +112,6 @@ async function getLinks(id) {
       const iconUrl = `https://icons.duckduckgo.com/ip3/${baseUrl}.ico`;
       const iconPath = path.join('.cached-icons', `${baseUrl}.ico`); // Verzeichnis für gecachte Icons
 
-      // Überprüfen, ob das Icon bereits existiert, wenn nicht, herunterladen
       if (!fs.existsSync(iconPath)) {
         await downloadIcon(iconUrl, iconPath);
       }
@@ -166,7 +163,6 @@ export async function createCollections() {
     const category = await requestLW("collections/" + section.id);
     const result = JSON.parse(category);
     
-    // Verwende den Index anstelle von section.sort
     card[index] = {
       title: result.response.name,
       col: section.cols,
