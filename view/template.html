@@ -6,58 +6,26 @@
     <style>
         :root{
             --primary-color: {{ data.global.color }};
+            --wrapper: {{ data.global.wrapper }};
         }
         </style>
     
     <link rel="stylesheet" href="./view/style.css">
     <script type="module" src="https://unpkg.com/ninja-keys?module"></script>
 </head>
-
-
 <body>
-    <header>        
-        
-    </header>
     <main class="wrapper row">
-        {% for key, category in data %}
-        <section class="category col-{{ category.col }}">
-            <h2>{{ category.title }}</h2>
-            {% if category.description %}
-            <p>{{ category.description }}</p>
-            {% endif %}
-            <ul class="links"> 
-                {% for id, link in category.items %}
-                <li>
-                    <a href="{{ link.url }}" target="_blank">
-                        <figure>
-                            {% if link.customIcon %}
-                            <img src="{{ link.customIcon }}" alt="">
-                            {% elif link.selfhost %}
-                            <img src="{{ link.selfhost }}" alt="">
-                            {% elif link.icon %}
-                            <img src="{{ link.icon }}" alt="">
-                            {% else %}
-                            NOOO
-                            {% endif %}
-                        </figure>
-                        <div class="content">
-                            <h3>{{ link.name | truncate(89) }}</h3>
-                            <p>{{ link.description }}</p>
-                        </div>
-                    </a>
-                </li>
-                {% endfor %}
-            </ul>
-        </section>
+        {% for key, category in data -%}
+        {% if category.type == 'group' %}{% include "snippets/type.group.html" %}
+        {% else %}
+        {% include "snippets/default.html" %}
+        {% endif %}
         {% endfor %}
     </main>
-    
 </body>
 <ninja-keys class="dark"> </ninja-keys>
 <script defer>
       const ninja = document.querySelector("ninja-keys");
       ninja.data = hotkeys;
   </script>
-
-
 </html>

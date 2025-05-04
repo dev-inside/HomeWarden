@@ -5,11 +5,18 @@ import { watch } from "fs";
 import nj from 'nunjucks';
 import config from "./config.toml";
 
-const env = new nj.Environment(new nj.FileSystemLoader(path.join(process.cwd(), 'view')));
+// nunjucks-instance
+const env = new nj.Environment(new nj.FileSystemLoader(path.join(process.cwd(), 'view')), {
+    autoescape: true,
+    trimBlocks: true, 
+    lstripBlocks: true
+});
+
 // intilalize the collections
 let collections;
 let collectionsCache = null;
 
+// generate the index.html file
 async function generateIndexHtml() {
     try {
         const templatePath = path.join(process.cwd(), 'view', 'template.html');

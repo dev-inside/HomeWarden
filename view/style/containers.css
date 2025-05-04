@@ -1,0 +1,10 @@
+.wrapper {
+    width: 100%;
+    max-width: var(--wrapper);
+    padding: 0 var(--unit);
+    margin: 0 auto;
+  }
+  
+  .category {
+    margin: calc(var(--unit) * .6) 0;
+  }

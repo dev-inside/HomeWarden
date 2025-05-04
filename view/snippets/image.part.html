@@ -1,0 +1,11 @@
+<figure>
+    {% if link.customIcon %}
+    <img src="{{ link.customIcon }}" alt="">
+    {% elif link.selfhost %}
+    <img src="{{ link.selfhost }}" alt="">
+    {% elif link.icon %}
+    <img src="{{ link.icon }}" alt="">
+    {% else %}
+    NOOO
+    {% endif %}
+</figure>

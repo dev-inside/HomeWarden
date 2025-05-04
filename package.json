@@ -16,7 +16,7 @@
   },
   "scripts": {
     "dw-server": "bun --watch server.js",
-    "dw-dash": "bun index.html ",
+    "dw-dash": "bun --minify index.html ",
     "start": "bun npm-run-all --parallel dw-server dw-dash"
   }
 }

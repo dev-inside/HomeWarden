@@ -1,0 +1,12 @@
+:root {
+    --primary-color-light: color-mix(in srgb, var(--primary-color) 60%, rgba(255, 255, 255, 1));
+    --primary-alpha: color-mix(in srgb, var(--primary-color) 10%, rgba(255, 255, 255, 0));
+    --primary-alpha-dark: color-mix(in srgb, var(--primary-color) 5%, rgba(0, 0, 0, 0.8));
+    --text-color: color-mix(in srgb, var(--primary-color) 30%, rgba(255, 255, 255, 1));
+    --background-color: var(--primary-color);
+    --border-radius: 9px;
+    --font-family: 'Figtree', sans-serif;
+    --font-size: 1rem;
+    --line-height: 1.5;
+    --unit: 1rem;
+  }

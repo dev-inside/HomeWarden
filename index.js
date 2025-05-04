@@ -7,8 +7,18 @@ const host = process.env.LW_HOST;
 const api = "api/v1";
 const token = process.env.LW_TOKEN;
 const url = host + "/" + api;
-const collections = config.CLT;
+const collections = config.COLLECTIONS;
 
+/**
+ * getBaseUrl(url)
+ * 
+ * Returns the base url of a given URL.
+ * Used to obtain the host from a URL which
+ * is needed to obtain the Favicons from the Google-API
+ * 
+ * @param {string} url 
+ * @returns 
+ */
 function getBaseUrl(url) {
   if (url === null || url === undefined) {
     return null; // oder einen anderen Standardwert, den Sie möchten
@@ -18,8 +28,11 @@ function getBaseUrl(url) {
 }
 
 /**
+ * requestLW(endpoint)
  * 
- * @param {*} endpoint 
+ * A simple http-request-helper to Linkwarden API
+ * 
+ * @param {string} endpoint 
  * @returns 
  */
 async function requestLW(endpoint) {
@@ -37,13 +50,18 @@ async function requestLW(endpoint) {
 /**
  * getIconUrl(name, filepath = "selfhst-icons/webp")
  * 
+ * This function browses through a given folder and 
+ * returns the first found image with a given name.
+ * By default it scrapes the selfhst-icons folder, 
+ * but is also used for custom icons.
+ * 
  * @param {*} name the collection.name generates the image name fa "Home Assistant" => home-assistant.webp
  * @param {*} filepath filepath is the path to the folder where icons are stored
  * @returns Custom Icon-Url as string
  */
 async function getIconUrl(name, filepath = "selfhst-icons/webp") {
   const formattedName = name.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9_\-]/gi, '');
-  const formats = ['.webp', '.png', '.gif', '.svg', '.jpeg'];
+  const formats = ['.webp', '.png', '.gif', '.svg', '.jpeg', '.jpg', '.avif'];
   for (const format of formats) {
     const iconPath = path.join(filepath, formattedName + format);
     if (fs.existsSync(iconPath)) {
@@ -55,6 +73,8 @@ async function getIconUrl(name, filepath = "selfhst-icons/webp") {
 
 /**
  * getLinks(id)
+ * 
+ * This function generates the object for the list-data
  * 
  * @param {*} id the unique identifier of the collection from Linkwarden
  * @returns object
@@ -93,6 +113,7 @@ async function getLinks(id) {
 
 /**
  * createCollections()
+ * 
  * Creates all collections containing the links and their metadata
  * 
  * @returns object
@@ -102,6 +123,7 @@ export async function createCollections() {
   const card = {
     global: {
       color: config.COLOR,
+      wrapper: config.WRAPPER,
     }
   };
   
@@ -113,6 +135,7 @@ export async function createCollections() {
     card[index] = {
       title: result.response.name,
       col: section.cols,
+      type: section.type,
       description: result.response.description,
       items: await getLinks(section.id)
     };
@@ -120,47 +143,4 @@ export async function createCollections() {
 
   
   return { data: card, timestamp: Date.now() };
-}
-
-async function makePanel() {
-  const { data } = await createCollections();
-  const ninja = { data: [] };
-
-  // Verwende Object.entries, um durch die Kategorien zu iterieren
-  for (const [key, category] of Object.entries(data)) {
-      // Füge die Kategorie als Objekt hinzu
-      ninja.data.push({
-          id: category.title,
-          title: category.title,
-          hotkey: `shift+${key}`,
-          handler: () => {
-              ninja.open({ parent: category.title });
-              return { keepOpen: true };
-          },
-      });
-
-      // Iteriere durch die Items der Kategorie
-      for (const link of category.items) {
-          // Füge jedes Link-Objekt hinzu
-          ninja.data.push({
-              id: link.name,
-              title: link.name,
-              section: category.title,
-              parent: category.title,
-              keywords: link.tags,
-              icon: link.customIcon 
-                  ? `<img width="18" height="18" src="${link.customIcon}" alt="">`
-                  : link.selfhost 
-                  ? `<img width="18" height="18" src="${link.selfhost}" alt="">`
-                  : link.icon 
-                  ? `<img width="18" height="18" src="${link.icon}" alt="">`
-                  : '',
-              handler: () => {
-                  window.open(link.url, '_blank');
-              },
-          });
-      }
-  }
-
-  await Bun.write('panel.json', JSON.stringify(ninja.data));
 }

@@ -1,0 +1,21 @@
+<section class="category col-{{ category.col }}">
+    <h2>{{ category.title }}</h2>
+    {% if category.description %}
+    <p>{{ category.description }}</p>
+    {% endif %}
+    <ul class="links grouped">
+        {% for id, link in category.items -%}
+        <li>
+            <a href="{{ link.url }}" target="_blank">
+                {% include "snippets/image.part.html" %}
+                <div class="content">
+                    <h3>{{ link.name | truncate(89) }}</h3>
+                    {% if link.description %}
+                    <p>{{ link.description }}</p>
+                    {% endif %}
+                </div>
+            </a>
+        </li>
+        {% endfor %}
+    </ul>
+</section>
