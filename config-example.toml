@@ -8,7 +8,7 @@ COLOR = "#DF4BB5"
 # FONT_SIZE
 # The font-size of your wrapper.
 # You can use px, rem or em.
-# By default it is set to .87rem.
+# By default it is set to 14px.
 FONT_SIZE = "14px"
 
 # BORDER_RADIUS
@@ -41,4 +41,4 @@ COLLECTIONS = [
 # This is necessary to update the links every x seconds 
 # to avoid rate limit errors.
 # The default value is 120 seconds.
-REFRESH_INTERVAL = 3600
+REFRESH_INTERVAL = 120
