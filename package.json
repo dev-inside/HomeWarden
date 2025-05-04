@@ -1,10 +1,10 @@
 {
-  "name": "dashwarden",
-  "description": "DashWarden - a simple Startpage/Dashboard - powered by your Linkwarden collections!",
+  "name": "homewarden",
+  "description": "homewarden - a simple Startpage/Dashboard - powered by your Linkwarden collections!",
   "version": "0.5.0",
   "repository": {
     "type": "git",
-    "url": "https://github.com/dev-inside/dashwarden.git"
+    "url": "https://github.com/dev-inside/homewarden.git"
   },
   "license": "MIT",
   "author": "dev-inside",
@@ -24,7 +24,7 @@
     "nunjucks": "^3.2.4"
   },
   "scripts": {
-    "dw-server": "bun --watch dashwarden/server.js",
+    "dw-server": "bun --watch homewarden/server.js",
     "dw-dash": "bun --watch index.html ",
     "start": "bun run-p dw-server dw-dash"
   }

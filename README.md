@@ -1,4 +1,4 @@
-# dashwarden
+# homewarden
 
 To install dependencies:
 

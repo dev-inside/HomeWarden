@@ -172,6 +172,6 @@ export async function createCollections() {
     };
   }));
 
-  await Bun.write('./dashwarden/collections.json', JSON.stringify(card));
+  await Bun.write('./homewarden/collections.json', JSON.stringify(card));
   return { data: card, timestamp: Date.now() };
 }

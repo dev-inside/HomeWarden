@@ -6,7 +6,7 @@ import nj from 'nunjucks';
 import config from "../config.toml";
 
 // nunjucks-instance
-const env = new nj.Environment(new nj.FileSystemLoader(path.join(process.cwd(), 'dashwarden/view')), {
+const env = new nj.Environment(new nj.FileSystemLoader(path.join(process.cwd(), 'homewarden/view')), {
     autoescape: true,
     trimBlocks: true, 
     lstripBlocks: true
@@ -36,7 +36,7 @@ async function generateIndexHtml() {
             };
         }
 
-        const templatePath = path.join(process.cwd(), 'dashwarden/view', 'template.html');
+        const templatePath = path.join(process.cwd(), 'homewarden/view', 'template.html');
         const templateContent = await fs.readFile(templatePath, 'utf-8');
         const renderedHtml = await env.renderString(templateContent, { data: collections });
         const outputPath = path.join(process.cwd(), 'index.html');
@@ -51,7 +51,7 @@ async function generateIndexHtml() {
 generateIndexHtml();
 
 // Watch for changes in the view directory
-const watchDirectory = path.join(process.cwd(), 'dashwarden/view');
+const watchDirectory = path.join(process.cwd(), 'homewarden/view');
 watch(watchDirectory, { recursive: true }, (eventType, fileName) => {
     console.log(`Detected ${eventType} in ${fileName}`);
     generateIndexHtml();
