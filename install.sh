@@ -1,2 +1,2 @@
-git submodule update --init --recursive
+sh ./update-icons.sh
 bun install

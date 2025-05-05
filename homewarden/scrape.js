@@ -1,6 +1,6 @@
 import fs from "fs";
 import path from 'path';
-import config from "../config.toml";
+import config from "../custom/config.toml";
 import pkgJson from '../package.json';
 
 const host = process.env.LW_HOST;

@@ -1,4 +1,4 @@
-import data from '../collections.json';
+import data from '../../custom/config.toml';
 import 'ninja-keys';
 
 // Konfiguration

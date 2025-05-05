@@ -3,7 +3,7 @@ import path from 'path';
 import fs from 'fs/promises';
 import { watch } from "fs";
 import nj from 'nunjucks';
-import config from "../config.toml";
+import config from "../custom/config.toml";
 
 // nunjucks-instance
 const env = new nj.Environment(new nj.FileSystemLoader(path.join(process.cwd(), 'homewarden/view')), {
