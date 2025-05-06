@@ -1,72 +1,79 @@
+import express from 'express';
 import { createCollections } from './scrape.js';
+import { join } from 'path';
+import { watch } from 'fs';
 import path from 'path';
-import fs from 'fs/promises';
-import { watch } from "fs";
 import nj from 'nunjucks';
 import config from "../custom/config.toml";
+import { NinjaKeys } from 'ninja-keys';
 
-// nunjucks-instance
-const env = new nj.Environment(new nj.FileSystemLoader(path.join(process.cwd(), 'homewarden/view')), {
+const env = new nj.Environment(new nj.FileSystemLoader(join(process.cwd(), 'homewarden/view')), {
     autoescape: true,
     trimBlocks: true, 
     lstripBlocks: true
 });
 
-// intilalize the collections
-let collections;
+const app = express();
+const PORT = process.env.PORT || 3000;
+
+app.use('/.cached-icons', express.static(join(process.cwd(), '.cached-icons')));
+app.use('/custom', express.static(join(process.cwd(), 'custom')));
+app.use('/selfhst-icons', express.static(join(process.cwd(), 'selfhst-icons')));
+app.use('/homewarden/view', express.static(join(process.cwd(), 'homewarden/view')));
+app.use("/ninjakeys", NinjaKeys);
 let collectionsCache = null;
 
-// generate the index.html file
-async function generateIndexHtml() {
-    try {
-        const cacheDir = path.join(process.cwd(), '.cached-icons');
-        await fs.mkdir(cacheDir, { recursive: true });
-
-        if (collectionsCache && Date.now() - collectionsCache.timestamp < config.REFRESH_INTERVAL * 1000) {
-            console.log('Using cached collections data');
-            collections = collectionsCache.data;
-        } else {
-            console.log('Generating fresh collections data');
-            const freshCollections = await createCollections();
-            collections = freshCollections.data;
-
-            collectionsCache = { 
-                data: collections,
-                timestamp: freshCollections.timestamp
-            };
-        }
-
-        const templatePath = path.join(process.cwd(), 'homewarden/view', 'template.html');
-        const templateContent = await fs.readFile(templatePath, 'utf-8');
-        const renderedHtml = await env.renderString(templateContent, { data: collections });
-        const outputPath = path.join(process.cwd(), 'index.html');
-        await fs.writeFile(outputPath, renderedHtml);
-        console.log('index.html has been generated successfully.');
-    } catch (error) {
-        console.error('Error generating index.html:', error);
+async function getCollections() {
+    if (!collectionsCache || Date.now() - collectionsCache.timestamp >= config.REFRESH_INTERVAL * 1000) {
+        console.log('Generating fresh collections data');
+        const freshCollections = await createCollections();
+        collectionsCache = { 
+            data: freshCollections.data,
+            timestamp: freshCollections.timestamp
+        };
+    } else {
+        console.log('Using cached collections data');
     }
+    return collectionsCache.data;
 }
 
-// Create the collections
-generateIndexHtml();
+app.get('/api/collections', async (req, res) => {
+    try {
+        const collections = await getCollections();
+        res.json(collections);
+    } catch (error) {
+        console.error('Error fetching collections:', error);
+        res.status(500).send('Internal Server Error');
+    }
+});
 
-// Watch for changes in the view directory
-const watchDirectory = path.join(process.cwd(), 'homewarden/view');
-watch(watchDirectory, { recursive: true }, (eventType, fileName) => {
+app.get('/', async (req, res) => {
+    try {
+        const collections = await getCollections();
+        const templatePath = join(process.cwd(), 'homewarden/view', 'template.html');
+        const templateContent = await Bun.file(templatePath).text();
+        const renderedHtml = await env.renderString(templateContent, { data: collections });
+        res.send(renderedHtml);
+    } catch (error) {
+        console.error('Error rendering the main page:', error);
+        res.status(500).send('Internal Server Error');
+    }
+});
+
+const watchDirectory = join(process.cwd(), 'homewarden/view');
+watch(watchDirectory, { recursive: true }, async (eventType, fileName) => {
     console.log(`Detected ${eventType} in ${fileName}`);
-    generateIndexHtml();
+    try {
+        console.log('Rebuilding collections due to file change...');
+        await createCollections();
+        collectionsCache = null;
+        console.log('Collections rebuilt successfully.');
+    } catch (error) {
+        console.error('Error rebuilding collections:', error);
+    }
 });
 
 
-// Clear cache every 30 seconds
-setInterval(() => {
-    collectionsCache = null;
-    generateIndexHtml();
-}, config.REFRESH_INTERVAL * 1000);
-
-// Optional: Interval beenden beim Herunterfahren des Servers
-process.on('exit', () => {
-    if (intervalId) {
-        clearInterval(intervalId);
-    }
+app.listen(PORT, () => {
+    console.log(`Server is running on http://localhost:${PORT}`);
 });

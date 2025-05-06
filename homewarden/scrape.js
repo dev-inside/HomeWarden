@@ -110,7 +110,7 @@ async function getLinks(id) {
     const baseUrl = await getBaseUrl(link.url);
     if (baseUrl) {
       const iconUrl = `https://icons.duckduckgo.com/ip3/${baseUrl}.ico`;
-      const iconPath = path.join('.cached-icons', `${baseUrl}.ico`); // Verzeichnis für gecachte Icons
+      const iconPath = path.join('.cached-icons', `${baseUrl}.ico`);
 
       if (!fs.existsSync(iconPath)) {
         await downloadIcon(iconUrl, iconPath);
@@ -156,6 +156,7 @@ export async function createCollections() {
       font_size: config.FONT_SIZE,
       border_radius: config.BORDER_RADIUS,
       bg_img: config.BG_IMG,
+      default_mode: config.DEFAULT_MODE,
       dw_version: pkgJson.version,
     }
   };

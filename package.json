@@ -8,10 +8,8 @@
   },
   "license": "MIT",
   "author": "dev-inside",
-  "module": "index.js",
   "devDependencies": {
-    "@types/bun": "latest",
-    "npm-run-all2": "^7.0.2"
+    "@types/bun": "latest"
   },
   "peerDependencies": {
     "typescript": "^5.0.0"
@@ -24,8 +22,6 @@
     "nunjucks": "^3.2.4"
   },
   "scripts": {
-    "dw-server": "bun --watch homewarden/server.js",
-    "dw-dash": "bun --watch index.html --port 3000 --host 0.0.0.0",
-    "start": "bun run-p dw-server dw-dash"
+    "start": "bun --hot homewarden/server.js"
   }
 }

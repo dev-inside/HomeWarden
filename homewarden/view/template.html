@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="light">
+<html lang="en" data-theme="{{ data.global.default_mode }}">
 <head>
     <title>homewarden</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -14,10 +14,10 @@
     <link rel="stylesheet" href="./homewarden/view/style.css">
     <script type="module" src="./homewarden/view/scripts.js"></script>
 </head>
-<body background="url({{ data.global.bg_img }})">
-    
-    <header>
-        <time id="datetime"></time>
+
+<body {% if data.global.bg_img -%}style="background-image: url(custom/{{ data.global.bg_img }})"{%- endif -%}>
+    <header class="wrapper">
+        <h1>homewarden</h1>
     </header>
     <main class="wrapper row">
         {% for key, category in data -%}
