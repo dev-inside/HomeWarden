@@ -25,7 +25,7 @@
   },
   "scripts": {
     "dw-server": "bun --watch homewarden/server.js",
-    "dw-dash": "bun --watch index.html ",
+    "dw-dash": "bun --watch index.html --port 3000 --host 0.0.0.0",
     "start": "bun run-p dw-server dw-dash"
   }
 }

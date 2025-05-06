@@ -147,3 +147,4 @@ dist
 .pnp.*
 bun.lock
 homewarden/collections.json
+.DS_Store
