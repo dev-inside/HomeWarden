@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" data-theme="{{ data.global.default_mode }}">
 <head>
-    <title>homewarden</title>
+    <title>HomeWarden</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
         :root{
@@ -18,8 +18,8 @@
 </head>
 
 <body {% if data.global.bg_img -%}style="background-image: url(custom/{{ data.global.bg_img }})"{%- endif -%}>
-    <header class="wrapper">
-        <h1>homewarden</h1>
+    <header id="banner" class="wrapper">
+        <h1>HomeWarden</h1>
     </header>
     <main class="wrapper row">
         {% for key, category in data -%}
