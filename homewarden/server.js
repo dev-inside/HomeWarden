@@ -15,7 +15,9 @@ const env = new nj.Environment(new nj.FileSystemLoader(join(process.cwd(), 'home
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-app.use(compression());
+app.use(compression({
+    type: "br"
+    }));
 app.use('/.cache', express.static(join(process.cwd(), '.cache')));
 app.use('/custom', express.static(join(process.cwd(), 'custom')));
 app.use('/selfhst-icons', express.static(join(process.cwd(), 'selfhst-icons')));

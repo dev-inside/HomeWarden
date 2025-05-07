@@ -1,2 +1,2 @@
 {% set iconSrc = link.customIcon or link.selfhost or link.icon %}
-{% if iconSrc %}<img width="45px" src="{{ iconSrc }}" alt="{{ link.name }}" />{% endif %}
+{% if iconSrc %}<img width="45px" src="{{ iconSrc }}" alt="{{ link.name }}" loading="lazy" />{% endif %}
