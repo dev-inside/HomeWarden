@@ -3,12 +3,19 @@
 # You can change the color by changing the value of the variable in the file.
 # If you want to use a different color, you can change it here.
 # 
-COLOR = "#88D3DD"
+COLOR = "#42ABEC"
+
+# Default theme
+# You can pick choose light and dark.
+DEFAULT_MODE = "dark"
+
+# Background-Image
+BG_IMG = ''
 
 # FONT_SIZE
 # The font-size of your wrapper.
 # You can use px, rem or em.
-# By default it is set to 14px.
+# By default it is set to .87rem.
 FONT_SIZE = "14px"
 
 # BORDER_RADIUS
@@ -29,6 +36,7 @@ WRAPPER = "1880px"
 # type: is how your collections will be rendered. You have the following options:
 # - group: will render your collections as a group-container with smaller thumbnails. Great for Link-Collections.
 # - default: if you don't assign "type", then every link will be displayed as separated link panel. Great for Services in your Homelab
+# it has a double purpose, it will be also set as keyboard shortcut for your section.
 COLLECTIONS = [
     { id = 1, cols = 4 },
     { id = 2, cols = 4 },
@@ -41,4 +49,4 @@ COLLECTIONS = [
 # This is necessary to update the links every x seconds 
 # to avoid rate limit errors.
 # The default value is 120 seconds.
-REFRESH_INTERVAL = 120
+REFRESH_INTERVAL = 3600
