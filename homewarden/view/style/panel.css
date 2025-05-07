@@ -18,7 +18,7 @@ ninja-keys {
     --ninja-icon-size: 1.2em;
     --ninja-separate-border: 1px solid var(--primary-alpha);
     --ninja-modal-shadow: 0px 16px 70px rgba(0, 0, 0, 0.2);
-    --ninja-actions-height: 360px;
+    --ninja-actions-height: 50vh;
     --ninja-z-index: 1;
 }
 
