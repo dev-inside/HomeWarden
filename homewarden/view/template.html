@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="{{ data.global.default_mode }}">
+<html lang="en">
 <head>
     <title>HomeWarden</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -17,7 +17,7 @@
     <script type="module" src="./homewarden/view/scripts.js" async></script>
 </head>
 
-<body {% if data.global.bg_img -%}style="background-image: url(custom/{{ data.global.bg_img }})"{%- endif -%}>
+<body {% if data.global.bg_img -%}style="background-image: url(custom/{{ data.global.bg_img }})"{%- endif -%} data-theme="{{ data.global.default_mode }}">
     <header id="banner" class="wrapper">
         <h1>HomeWarden</h1>
     </header>
