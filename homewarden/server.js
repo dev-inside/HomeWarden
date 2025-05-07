@@ -2,6 +2,7 @@ import express from 'express';
 import { createCollections } from './scrape.js';
 import { join } from 'path';
 import { watch } from 'fs';
+import compression from 'compression';
 import nj from 'nunjucks';
 import config from "../custom/config.toml";
 
@@ -14,6 +15,7 @@ const env = new nj.Environment(new nj.FileSystemLoader(join(process.cwd(), 'home
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+app.use(compression());
 app.use('/.cache', express.static(join(process.cwd(), '.cache')));
 app.use('/custom', express.static(join(process.cwd(), 'custom')));
 app.use('/selfhst-icons', express.static(join(process.cwd(), 'selfhst-icons')));
