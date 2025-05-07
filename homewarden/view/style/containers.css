@@ -4,3 +4,15 @@
   padding: 0 var(--unit);
   margin: 0 auto;
 }
+
+.copyright{
+  margin: 0 auto;
+  padding: calc(var(--unit) * 1.5) var(--unit) var(--unit);
+  text-align: center;
+}
+
+.pill{
+  background-color: var(--primary-alpha);
+  padding: calc(var(--unit) * .5) var(--unit) ;
+  border-radius: var(--border-radius);
+}

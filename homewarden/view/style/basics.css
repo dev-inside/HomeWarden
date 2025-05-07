@@ -18,9 +18,9 @@
     position: static;
     font-family: 'Figtree Variable', sans-serif;
     font-size: var(--font-size);
+    color: var(--text-color);
     font-weight: 300;
     line-height: var(--line-height);
-    color: var(--text-color);
     z-index: 0;
   
     &::before {
@@ -44,7 +44,7 @@
     color: var(--primary-color-light);
   }
   
-  p {
+  p, span {
     color: var(--text-color);
     line-height: var(--line-height);
   }
