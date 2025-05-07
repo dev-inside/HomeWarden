@@ -2,10 +2,8 @@ import express from 'express';
 import { createCollections } from './scrape.js';
 import { join } from 'path';
 import { watch } from 'fs';
-import path from 'path';
 import nj from 'nunjucks';
 import config from "../custom/config.toml";
-import { NinjaKeys } from 'ninja-keys';
 
 const env = new nj.Environment(new nj.FileSystemLoader(join(process.cwd(), 'homewarden/view')), {
     autoescape: true,
@@ -16,11 +14,12 @@ const env = new nj.Environment(new nj.FileSystemLoader(join(process.cwd(), 'home
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-app.use('/.cached-icons', express.static(join(process.cwd(), '.cached-icons')));
+app.use('/.cache', express.static(join(process.cwd(), '.cache')));
 app.use('/custom', express.static(join(process.cwd(), 'custom')));
 app.use('/selfhst-icons', express.static(join(process.cwd(), 'selfhst-icons')));
-app.use('/homewarden/view', express.static(join(process.cwd(), 'homewarden/view')));
-app.use("/ninjakeys", NinjaKeys);
+app.use('/homewarden', express.static(join(process.cwd(), 'homewarden')));
+app.use('/fonts', express.static(join(process.cwd(), 'node_modules/@fontsource-variable/figtree')));
+
 let collectionsCache = null;
 
 async function getCollections() {
@@ -72,7 +71,6 @@ watch(watchDirectory, { recursive: true }, async (eventType, fileName) => {
         console.error('Error rebuilding collections:', error);
     }
 });
-
 
 app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);

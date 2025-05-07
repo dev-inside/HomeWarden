@@ -110,7 +110,7 @@ async function getLinks(id) {
     const baseUrl = await getBaseUrl(link.url);
     if (baseUrl) {
       const iconUrl = `https://icons.duckduckgo.com/ip3/${baseUrl}.ico`;
-      const iconPath = path.join('.cached-icons', `${baseUrl}.ico`);
+      const iconPath = path.join('.cache', `${baseUrl}.ico`);
 
       if (!fs.existsSync(iconPath)) {
         await downloadIcon(iconUrl, iconPath);
@@ -173,7 +173,5 @@ export async function createCollections() {
       items: await getLinks(section.id)
     };
   }));
-
-  await Bun.write('./homewarden/collections.json', JSON.stringify(card));
   return { data: card, timestamp: Date.now() };
 }

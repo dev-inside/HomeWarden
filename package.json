@@ -18,10 +18,12 @@
   "dependencies": {
     "@fontsource-variable/figtree": "^5.2.6",
     "chokidar": "^4.0.3",
+    "express": "^5.1.0",
     "ninja-keys": "^1.2.2",
     "nunjucks": "^3.2.4"
   },
   "scripts": {
-    "start": "bun --hot homewarden/server.js"
+    "build-dep": "bun build node_modules/ninja-keys --outdir .cache --minify",
+    "start": "bun build-dep & bun --hot homewarden/server.js"
   }
 }

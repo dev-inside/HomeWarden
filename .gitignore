@@ -16,7 +16,7 @@ custom/icons/*.svg
 custom/icons/*.webp
 custom/icons/*.gif
 config.toml
-.cached-icons/
+.cache/
 
 # Diagnostic reports (https://nodejs.org/api/report.html)
 report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
