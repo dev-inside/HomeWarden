@@ -10,7 +10,6 @@ RUN bun install
 
 RUN mkdir -p /app/custom/icons
 
-COPY ./config.toml /app/custom/
 COPY ./update-icons.sh /app/
 RUN chmod +x /app/update-icons.sh
 
