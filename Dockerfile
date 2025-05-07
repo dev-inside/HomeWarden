@@ -2,7 +2,7 @@ FROM oven/bun:alpine
 
 RUN apk add --no-cache git curl bash
 
-RUN git clone https://github.com/dev-inside/HomeWarden.git /app
+RUN git clone https://github.com/dev-inside/homewarden.git /app
 
 WORKDIR /app
 
