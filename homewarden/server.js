@@ -63,6 +63,19 @@ app.get('/', async (req, res) => {
     }
 });
 
+app.post('/api/refresh', async (req, res) => {
+    try {
+        console.log('Rebuilding collections...');
+        await createCollections();
+        collectionsCache = null; 
+        console.log('Collections rebuilt successfully.');
+        res.status(200).send('Collections have been rebuilt successfully.');
+    } catch (error) {
+        console.error('Error rebuilding collections:', error);
+        res.status(500).send('Internal Server Error');
+    }
+});
+
 const watchDirectory = join(process.cwd(), 'homewarden/view');
 watch(watchDirectory, { recursive: true }, async (eventType, fileName) => {
     console.log(`Detected ${eventType} in ${fileName}`);

@@ -38,13 +38,12 @@ fetchCollections().then(data => {
             });
         }
     });
-
     
     commands.push(
         {
             id: 'Light Theme',
             title: 'Switch to light theme',
-            parent: 'Theme',
+            section: 'Options',
             handler: () => {
                 document.body.removeAttribute('data-theme');
                 localStorage.setItem('theme', 'light');
@@ -53,19 +52,50 @@ fetchCollections().then(data => {
         {
             id: 'Dark Theme',
             title: 'Switch to dark theme',
-            parent: 'Theme',
+            section: 'Options',
             handler: () => {
                 document.body.setAttribute('data-theme', 'dark');
                 localStorage.setItem('theme', 'dark');
             },
-        }
-    );
+        },
+        {
+            id: 'Rebuild Collections',
+            title: 'Rebuild Collections',
+            section: 'Options',
+            handler: async () => {
+                const response = await fetch('/api/refresh', { method: 'POST' });
+                const message = response.ok 
+                    ? 'Collections have been rebuilt successfully!' 
+                    : 'Failed to rebuild collections.';
+                
+                console.log(message);
+                alert(message);
 
+                if (response.ok) {
+                    location.reload();
+                }
+            },
+        }        
+    );
     
     ninja.data = commands;
 
     const savedTheme = localStorage.getItem('theme');
     if (savedTheme) {
         document.body.setAttribute('data-theme', savedTheme);
+    } 
+});
+
+ninja.addEventListener('change', (event) => {
+    if (event.detail.action == null) {
+        ninja.currentValue = event.detail.search;
+    }
+});
+
+ninja.addEventListener('keydown', (event) => {
+    if (event.key === 'Enter') {
+        event.preventDefault();
+        const searchUrl = searchEngineUrl.replace(/%s/, encodeURIComponent(ninja.currentValue)); 
+        window.open(searchUrl, '_blank');
     }
 });

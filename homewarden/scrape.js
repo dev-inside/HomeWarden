@@ -157,6 +157,7 @@ export async function createCollections() {
       border_radius: config.BORDER_RADIUS,
       bg_img: config.BG_IMG,
       default_mode: config.DEFAULT_MODE,
+      search_engine: config.SEARCH_ENGINE,
       dw_version: pkgJson.version,
     }
   };
