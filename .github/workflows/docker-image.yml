@@ -25,7 +25,7 @@ jobs:
 
       - name: Build Docker image
         run: |
-          docker build --no-cache . -t ghcr.io/${{ github.repository }}/homewarden:${{ env.VERSION }}
+          docker build --no-cache --pull . -t ghcr.io/${{ github.repository }}/homewarden:${{ env.VERSION }}
 
       - name: Push Docker image
         run: |
