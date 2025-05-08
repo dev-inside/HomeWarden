@@ -21,11 +21,11 @@ jobs:
           password: ${{ secrets.CR_PAT }}
 
       - name: Set version
-        run: echo "VERSION=latest" >> $GITHUB_ENV
+        run: echo "VERSION=$(date +'%Y%m%d%H%M%S')" >> $GITHUB_ENV
 
       - name: Build Docker image
         run: |
-          docker build . -t ghcr.io/${{ github.repository }}/homewarden:${{ env.VERSION }}
+          docker build --no-cache . -t ghcr.io/${{ github.repository }}/homewarden:${{ env.VERSION }}
 
       - name: Push Docker image
         run: |
