@@ -12,7 +12,7 @@ async function fetchCollections() {
         return data;
     } catch (error) {
         console.error('Fehler beim Abrufen der Collections:', error);
-        return []; 
+        return [];
     }
 }
 
@@ -21,7 +21,7 @@ fetchCollections().then(data => {
         const collection = data[key];
 
         if (collection && collection.title && collection.items) {
-            
+
             Object.values(collection.items).forEach(item => {
                 const iconSrc = item.customIcon || item.selfhost || item.icon;
                 const imgElement = iconSrc ? `<img src="${iconSrc}" alt="${item.name}" style="margin-right: 10px; width: calc(${data.global.font_size} * 1.4)" />` : '';
@@ -38,7 +38,7 @@ fetchCollections().then(data => {
             });
         }
     });
-    
+
     commands.push(
         {
             id: 'Light Theme',
@@ -64,10 +64,10 @@ fetchCollections().then(data => {
             section: 'Options',
             handler: async () => {
                 const response = await fetch('/api/refresh', { method: 'POST' });
-                const message = response.ok 
-                    ? 'Collections have been rebuilt successfully!' 
+                const message = response.ok
+                    ? 'Collections have been rebuilt successfully!'
                     : 'Failed to rebuild collections.';
-                
+
                 console.log(message);
                 alert(message);
 
@@ -75,27 +75,13 @@ fetchCollections().then(data => {
                     location.reload();
                 }
             },
-        }        
+        }
     );
-    
+
     ninja.data = commands;
 
     const savedTheme = localStorage.getItem('theme');
     if (savedTheme) {
         document.body.setAttribute('data-theme', savedTheme);
-    } 
-});
-
-ninja.addEventListener('change', (event) => {
-    if (event.detail.action == null) {
-        ninja.currentValue = event.detail.search;
-    }
-});
-
-ninja.addEventListener('keydown', (event) => {
-    if (event.key === 'Enter') {
-        event.preventDefault();
-        const searchUrl = searchEngineUrl.replace(/%s/, encodeURIComponent(ninja.currentValue)); 
-        window.open(searchUrl, '_blank');
     }
 });
