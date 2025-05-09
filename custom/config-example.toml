@@ -45,6 +45,11 @@ COLLECTIONS = [
     { id = 5, cols = 4, type = "group" }
 ]
 
+# SEARCH_QUERY
+# This is a placeholder for your search query. You can use it in the Search-Engine-URL to make it dynamic and changeable.
+# The pattern %s will be replaced with your search query.
+SEARCH_ENGINE = "https://www.duckduckgo.com/?q=%s"
+
 # REFRESH_INTERVAL
 # This is necessary to update the links every x seconds 
 # to avoid rate limit errors.

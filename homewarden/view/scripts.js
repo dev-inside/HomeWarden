@@ -79,6 +79,13 @@ fetchCollections().then(data => {
 
     ninja.data = commands;
 
+    ninja.addEventListener('selected', (event) => {
+        if (event.detail.action == null) {
+            var searchQuery = searchng.replace(/%s/, encodeURIComponent(event.detail.search));
+            window.open(searchQuery, '_blank').focus();
+        }  
+    });
+
     const savedTheme = localStorage.getItem('theme');
     if (savedTheme) {
         document.body.setAttribute('data-theme', savedTheme);
