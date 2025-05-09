@@ -16,7 +16,8 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 app.use(compression({
-    type: "br"
+    threshold: 0, 
+    level: 6
     }));
 app.use('/.cache', express.static(join(process.cwd(), '.cache')));
 app.use('/custom', express.static(join(process.cwd(), 'custom')));
