@@ -20,13 +20,17 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.CR_PAT }}
 
-      - name: Set version
-        run: echo "VERSION=$(date +'%Y%m%d%H%M%S')" >> $GITHUB_ENV
+      - name: Get version from package.json
+        id: get_version
+        run: |
+          VERSION=$(jq -r '.version' package.json)
+          echo "VERSION=${VERSION}" >> $GITHUB_ENV
 
       - name: Build Docker image
         run: |
-          docker build --no-cache --pull . -t ghcr.io/${{ github.repository }}/homewarden:${{ env.VERSION }}
+          docker build --no-cache --pull . -t ghcr.io/${{ github.repository }}/homewarden:${{ env.VERSION }} -t ghcr.io/${{ github.repository }}/homewarden:latest
 
       - name: Push Docker image
         run: |
           docker push ghcr.io/${{ github.repository }}/homewarden:${{ env.VERSION }}
+          docker push ghcr.io/${{ github.repository }}/homewarden:latest
