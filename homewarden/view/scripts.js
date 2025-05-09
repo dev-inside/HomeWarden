@@ -1,7 +1,6 @@
 const ninja = document.querySelector('ninja-keys');
 const commands = [];
 
-
 async function fetchCollections() {
     try {
         const response = await fetch('/api/collections');

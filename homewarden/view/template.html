@@ -3,6 +3,9 @@
 <head>
     <title>HomeWarden</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script>
+    navigator.serviceWorker.register('/sw.js')
+    </script>
     <style>
         :root{
             --primary-color: {{ data.global.color }};
@@ -12,7 +15,7 @@
         }
         </style>
     <link rel="stylesheet" href="/fonts/index.css">
-    <link rel="stylesheet" href="./homewarden/view/style.css">
+    <link rel="stylesheet" href="/homewarden/view/style.css">
     <script type="module" src="./.cache/ninja-keys/dist/ninja-keys.js" defer></script>
     <script type="module" src="./homewarden/view/scripts.js" async></script>
 </head>

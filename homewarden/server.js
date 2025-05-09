@@ -24,6 +24,9 @@ app.use('/custom', express.static(join(process.cwd(), 'custom')));
 app.use('/selfhst-icons', express.static(join(process.cwd(), 'selfhst-icons')));
 app.use('/homewarden', express.static(join(process.cwd(), 'homewarden')));
 app.use('/fonts', express.static(join(process.cwd(), 'node_modules/@fontsource-variable/figtree')));
+app.get('/sw.js', (req, res) => {
+    res.sendFile(join(process.cwd(), 'homewarden/view/sw.js'));
+  });
 
 let collectionsCache = null;
 
