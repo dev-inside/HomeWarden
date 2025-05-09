@@ -21,12 +21,11 @@ const collections = config.COLLECTIONS;
  */
 function getBaseUrl(url) {
   if (url === null || url === undefined) {
-    return null; // oder einen anderen Standardwert, den Sie möchten
+    return null; 
   }
   const parsedUrl = new URL(url);
   const host = parsedUrl.host;
 
-  // Entferne "www." von der Domain, falls vorhanden
   const baseUrl = host.startsWith('www.') ? host.slice(4) : host;
 
   return baseUrl;
