@@ -30,12 +30,12 @@ WRAPPER = "1880px"
 
 # COLLECTIONS
 # Set collections as array
-# id: the uniqure collections-id in Linkwarden
-# cols: Column width of your section. You can choose between 1-12
-# sort: Sort order of your section. You can choose a single digit.
-# type: is how your collections will be rendered. You have the following options:
-# - group: will render your collections as a group-container with smaller thumbnails. Great for Link-Collections.
-# - default: if you don't assign "type", then every link will be displayed as separated link panel. Great for Services in your Homelab
+# - id: the uniqure collections-id in Linkwarden
+# - cols: Column width of your section. You can choose between 1-12
+# - sort: Sort order of your section. You can choose a single digit.
+# - type: is how your collections will be rendered. You have the following options:
+#   - group: will render your collections as a group-container with smaller thumbnails. Great for Link-Collections.
+#   - default: if you don't assign "type", then every link will be displayed as separated link panel. Great for Services in your Homelab
 # it has a double purpose, it will be also set as keyboard shortcut for your section.
 COLLECTIONS = [
     { id = 1, cols = 4 },
@@ -45,10 +45,15 @@ COLLECTIONS = [
     { id = 5, cols = 4, type = "group" }
 ]
 
-# SEARCH_QUERY
-# This is a placeholder for your search query. You can use it in the Search-Engine-URL to make it dynamic and changeable.
-# The pattern %s will be replaced with your search query.
-SEARCH_ENGINE = "https://www.duckduckgo.com/?q=%s"
+# SEARCH_ENGINE
+# You can add your search engines or any other sites you want to search through the command panel in HomeWarden.
+# - bang: A prefix for the search engine you want to use.
+# - url: The URL of the website you want to search on. Make sure to include the "%s" placeholder for the query pattern.
+# - default: Sets your default search engine. The default search engine will work without any "bang" prefix.
+SEARCH_ENGINE = [
+    { bang = "!d", url = "https://www.duckduckgo.com/?q=%s", default = true,},
+    { bang = "!wookie", url = "https://en.wikipedia.org/wiki/%s", }
+]
 
 # REFRESH_INTERVAL
 # This is necessary to update the links every x seconds 

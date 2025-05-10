@@ -13,7 +13,7 @@
         </style>
     <link rel="stylesheet" href="/fonts/index.css">
     <link rel="stylesheet" href="/homewarden/view/style.css">
-    <script>let searchng = "{{ data.global.search_engine }}"</script>
+    <script>const SEARCH_ENGINE = {{ data.global.search_engine | safe }}</script>
     <script type="module" src="./.cache/ninja-keys/dist/ninja-keys.js" defer></script>
     <script type="module" src="./homewarden/view/scripts.js" async></script>
 </head>
