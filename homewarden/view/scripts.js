@@ -78,17 +78,19 @@ fetchCollections().then(data => {
     );
 
     ninja.data = commands;
-    
+
     ninja.addEventListener('selected', (event) => {
-        const searchText = event.detail.search.trim();
-        const [bang, ...queryParts] = searchText.split(/\s+/);
-        const query = queryParts.join(' ');
-    
-        const engine = SEARCH_ENGINE.find(engine => engine.bang === bang) || 
-                       SEARCH_ENGINE.find(engine => engine.default);
-    
-        const searchQuery = engine.url.replace(/%s/, encodeURIComponent(query || searchText));
-        window.open(searchQuery, '_blank').focus();
+        if (event.detail.action == null) {
+            const searchText = event.detail.search.trim();
+            const [bang, ...queryParts] = searchText.split(/\s+/);
+            const query = queryParts.join(' ');
+
+            const engine = SEARCH_ENGINE.find(engine => engine.bang === bang) ||
+                SEARCH_ENGINE.find(engine => engine.default);
+
+            const searchQuery = engine.url.replace(/%s/, encodeURIComponent(query || searchText));
+            window.open(searchQuery, '_blank').focus();
+        }
     });
 
     const savedTheme = localStorage.getItem('theme');
