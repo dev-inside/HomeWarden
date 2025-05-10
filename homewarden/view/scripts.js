@@ -90,6 +90,7 @@ fetchCollections().then(data => {
 
             const searchQuery = engine.url.replace(/%s/, encodeURIComponent(query || searchText));
             window.open(searchQuery, '_blank').focus();
+            ninja.close();
         }
     });
 
