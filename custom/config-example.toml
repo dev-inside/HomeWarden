@@ -52,7 +52,7 @@ COLLECTIONS = [
 # - default: Sets your default search engine. The default search engine will work without any "bang" prefix.
 SEARCH_ENGINE = [
     { bang = "!d", url = "https://www.duckduckgo.com/?q=%s", default = true,},
-    { bang = "!wookie", url = "https://en.wikipedia.org/wiki/%s", }
+    { bang = "!w", url = "https://en.wikipedia.org/wiki/%s", }
 ]
 
 # REFRESH_INTERVAL
